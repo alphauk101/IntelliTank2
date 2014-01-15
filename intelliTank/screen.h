@@ -9,6 +9,7 @@ class Screen
   public:
   Screen();
   void screenManager(String , String);
+  void transist();
 };
 
 #endif

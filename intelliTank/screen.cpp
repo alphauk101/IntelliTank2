@@ -22,3 +22,20 @@ void Screen::screenManager(String line1, String line2)//we pass both lines
   lcd.print(line2);
   //done
 }
+
+void Screen::transist()
+{
+  for(int count = 0; count < 16; count++)
+  {
+    String line1;
+    String line2;
+    
+    for(int inner = 0; inner <= count; inner++)
+    {
+      line1 += "-";
+      line2 += "-";
+    }
+    
+    screenManager(line1,line2);
+  }
+}

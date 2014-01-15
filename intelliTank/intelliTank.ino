@@ -1,4 +1,4 @@
-#include <dht.h>
+#include "DHT11.h"
 #include <LiquidCrystal.h>
 #include "screen.h"
 
@@ -16,6 +16,9 @@ void setup()
 
 void loop()
 {
+  
+
+  
   DHT.read11(dhtPIN);//this sets properties within itself 
 
   double temp = DHT.temperature;
@@ -39,7 +42,6 @@ void loop()
   screen.screenManager(line1,line2);
 
   delay(3000);
-  
 }
 
 
