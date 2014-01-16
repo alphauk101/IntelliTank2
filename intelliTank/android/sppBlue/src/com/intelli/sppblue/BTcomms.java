@@ -90,6 +90,7 @@ public class BTcomms {
 	            // Unable to connect; close the socket and get out
 	            try {
 	                mmSocket.close();
+	                sendMessage(MainActivity.ERROR_BLUETOOTH_ADAPTER, "Unable to connect to Intelli-tank, try restarting the app and tank.");
 	            } catch (IOException closeException) { }
 	            return;
 	        }
@@ -169,6 +170,7 @@ public class BTcomms {
 		            	
 		                // Send the obtained bytes to the UI activity
 		                Message msg = new Message();
+		                msg.what = MainActivity.BLUETOOTH_BYTES_AVAILABLE;
 		                Bundle bun = new Bundle();
 		                bun.putByteArray(MainActivity.BLUETOOTH_BYTES_AVAIL_KEY,data);
 		                msg.setData(bun);

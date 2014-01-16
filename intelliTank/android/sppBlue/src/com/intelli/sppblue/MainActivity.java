@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,7 +49,7 @@ public class MainActivity extends Activity {
 	private final byte WATERTEMP_TYPE = 0x01;
 
 
-	
+	ProgressDialog mProgressDialog;
 	BluetoothAdapter mBluetoothAdapter;
 	public static Handler mHandler;
 	//ConnectedThread ct;
@@ -85,14 +86,17 @@ public class MainActivity extends Activity {
 				{
 				case ERROR_BLUETOOTH_ADAPTER:
 						showError(msg.getData().getString(ERROR_MESSAGE_STRING));
+						mProgressDialog.hide();
 					break;
 				case BLUETOOTH_BYTES_AVAILABLE:
 					//we have some byte here do whatever with them
+					processIncomingData(msg.getData().getByteArray(BLUETOOTH_BYTES_AVAIL_KEY));
 					break;
 				case BLUETOOTH_CONNECTED:
 					mButton.setText("Connected");
 					mButton.setEnabled(false);
 					Toast.makeText(getApplicationContext(), "Exit App to disconnect.", Toast.LENGTH_LONG).show();
+					mProgressDialog.hide();
 					break;
 				case WATERTEMP_READING:
 					int waterTemp = msg.getData().getInt(WATERTEMP_VALUE);
@@ -134,6 +138,12 @@ public class MainActivity extends Activity {
 	{
 		tvWaterTemp = (TextView)findViewById(R.id.edt_waterTemp);
 		tvWaterTemp.setText("--C");
+		
+		//progress spinner
+		mProgressDialog = new ProgressDialog(this);
+		mProgressDialog.setMessage("Connecting to Intelli-Tank...");
+		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		
 	}
 	
 	
@@ -156,6 +166,7 @@ public class MainActivity extends Activity {
 	{
 		if(mBluetoothAdapter != null)
 		{
+			mProgressDialog.show();
 			mBTcomms = new BTcomms(mBluetoothAdapter);
 		}else
 		{
@@ -169,6 +180,7 @@ public class MainActivity extends Activity {
 		if(mBTcomms != null)
 		{
 			mBTcomms.closeConnection();
+			Toast.makeText(getApplicationContext(), "Disconnected from tank", Toast.LENGTH_LONG).show();
 		}
 		super.onPause();
 	}
