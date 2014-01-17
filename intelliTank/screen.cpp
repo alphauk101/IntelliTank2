@@ -7,6 +7,7 @@ LiquidCrystal lcd(2, 4, 7, A0, A1, A2, A3);
 Screen::Screen()
 {
   lcd.begin(16, 2);
+  lcd.print("  Intelli-Tank");
 }
 
 void Screen::screenManager(String line1, String line2)//we pass both lines
