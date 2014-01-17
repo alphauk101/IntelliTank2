@@ -7,6 +7,8 @@
 #define dhtPIN A4
 OneWire ds(8);
 
+char degreeSymbol = 223;
+
 dht DHT;
 Screen screen;
 
@@ -20,9 +22,9 @@ void setup()
 void loop()
 {
 
-  //delay(3000);
-  //getHoodAtmos();
-  delay(1000);
+  delay(2000);
+  getHoodAtmos();
+  delay(2000);
   getWaterTemp();
 }
 
@@ -60,19 +62,14 @@ void getWaterTemp()
   byte MSB = data[1];
 
   int tempInt = ((MSB << 8) | LSB);
-  if(tempInt & 0x8000)
-  {
-    tempInt = (tempInt ^ 0xffff) + 1;//for minus purposes only
-  }
   tempInt = (6 * tempInt) + tempInt / 4;
   
   int frac = tempInt % 100;
   tempInt = tempInt / 100;
    
-
   String tempStr = String(tempInt);
   String fracStr = String(frac);
-  tempStr = "Water:" + tempStr + "." + fracStr + "C";
+  tempStr = "Water: " + tempStr + "." + fracStr + degreeSymbol+"C";
   screen.screenManager(tempStr, "No Alerts");
 
 }
@@ -81,23 +78,18 @@ void getHoodAtmos()
 {
   DHT.read11(dhtPIN);//this sets properties within itself 
 
-  double temp = DHT.temperature;
-  char* tempStr = (char*) malloc(5);
-  dtostrf(temp, 2, 2, tempStr);
+  int temp = DHT.temperature;
+  String tempS = String(temp);
 
-  String tempS = String(tempStr);
+  
+  
+  String line1 = "Temp: " + tempS + degreeSymbol+"C";
 
-  String line1 = "Temp: " + tempS + "C";
-  free(tempStr);
 
-  double hum = DHT.humidity;
-  char* humStr = (char*) malloc(5);
-  dtostrf(hum, 2, 2, humStr);
-
-  String humS = String(humStr);
+  int hum = DHT.humidity;
+  String humS = String(hum);
 
   String line2 = "Hum: " + humS + "%";
-  free(humStr);
 
   screen.screenManager(line1,line2);
 
