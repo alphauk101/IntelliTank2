@@ -8,6 +8,7 @@ Screen::Screen()
 {
   lcd.begin(16, 2);
   lcd.print("  Intelli-Tank");
+  //delay(1000);
 }
 
 void Screen::screenManager(String line1, String line2)//we pass both lines
