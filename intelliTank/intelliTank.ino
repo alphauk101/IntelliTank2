@@ -33,6 +33,8 @@ static int NIGHTPOWER = 7395;
 boolean DAYTIME = true;
 char degreeSymbol = 223;
 
+float ALERT_TEMP = 0;//if the temp is anything other than zro show
+
 unsigned long HALFPOWER_TIMER = 120000; // 10 mins
 unsigned long QUARTPOWER_TIMER = 180000; //15 mins
 unsigned long CURRENT_TIME;
@@ -131,7 +133,7 @@ void doTempReadings()
   //Once we have the readings we should check which to display to the user ALSO send to the BT when its functioning
   getHoodAtmos();//we now have a DHT object with temp hum properties
 
-  double waterTemp = getWaterTemp();
+  float waterTemp = getWaterTemp();
   checkWaterTemp(waterTemp);//sound and store alarms
   
   if(WHICH_DISP)
@@ -147,24 +149,45 @@ void doTempReadings()
   }
   else
   {
-    char* humStr = (char*) malloc(4);
-    dtostrf(waterTemp, 3, 1, humStr);
+    char* tempStr = (char*) malloc(4);
+    dtostrf(waterTemp, 3, 1, tempStr);
 
-    String temp = String(humStr);
+    String temp = String(tempStr);
     temp = temp + degreeSymbol+"C";
-    screen.screenManager("Water Temp: ",temp);
-    free(humStr);
+    
+    if(ALERT_TEMP != 0)//as in its got a reading
+    {
+      
+      char* alertStr = (char*) malloc(4);
+      dtostrf(ALERT_TEMP, 3, 1, alertStr);
+  
+      String tempAl = String(alertStr);
+      tempAl = tempAl + degreeSymbol+"C";
+      
+      screen.screenManager("Water Temp: " + temp, "ALERT: " + tempAl);
+      free(alertStr);
+      
+    }else
+    {
+      screen.screenManager("Water Temp: " , temp);
+    }
+    
+    free(tempStr);
   }
   WHICH_DISP = ! WHICH_DISP;
 }
 
-void checkWaterTemp(double temp)
+void checkWaterTemp(float temp)
 {
   if(temp < ALARM_LOWTEMP)
   {
     //sound alarm and probably log it!
-    alarm();//ssound alarm
+    alarm();//sound alarm
     //probably save temp so when can display this
+    if((temp < ALERT_TEMP) || (ALERT_TEMP == 0))
+    {
+      ALERT_TEMP = temp;
+    }
   }
 }
 
@@ -176,7 +199,6 @@ void alarm()
     delay(250);
     analogWrite(buzzer,0);
     delay(250);
-    
   }
   analogWrite(buzzer,0);//makesure the alarm is off
 }
@@ -268,12 +290,7 @@ double getWaterTemp()
   int tempInt = ((MSB << 8) | LSB);
   float tempD = ((6 * tempInt) + tempInt / 4);
   tempD = tempD / 100;
-  /*
-  float frac = tempInt % 100;
-  frac = frac / 100;
-  float waterTemp = tempD + frac;
-  */
-  Serial.println(waterTemp);
+
   return tempD;
 }
 
