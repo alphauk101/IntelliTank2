@@ -266,11 +266,13 @@ double getWaterTemp()
    screen.screenManager(tempStr, "No Alerts");
    */
   int tempInt = ((MSB << 8) | LSB);
-  double tempD = ((6 * tempInt) + tempInt / 4);
+  float tempD = ((6 * tempInt) + tempInt / 4);
   tempD = tempD / 100;
+  /*
   float frac = tempInt % 100;
   frac = frac / 100;
   float waterTemp = tempD + frac;
+  */
   Serial.println(waterTemp);
   return tempD;
 }
