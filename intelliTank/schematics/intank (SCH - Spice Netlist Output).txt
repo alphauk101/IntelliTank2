@@ -1,0 +1,77 @@
+Spice Netlist Output
+--------------------
+
+Report File    : H:\IntelliTank2\intelliTank\schematics\intank (SCH - Spice Netlist Output).txt
+Report Written : Wednesday, February 05, 2014
+Design Path    : H:\IntelliTank2\intelliTank\schematics\intank.sch
+Design Title   : 
+Created        : 
+Last Saved     : 05/02/2014 20:19:20
+Editing Time   : 168 min
+Units          : thou (precision 2)
+
+LTspice Netlist Created: H:\IntelliTank2\intelliTank\schematics\intank.cir
+
+Errors / Warnings Found:
+------------------------
+Warning, no ground net found.
+Warning, Uniform Distributed RC Line "U1" has no "SpiceModel" value.
+
+The component name "L7805CV3" will be used.
+Unconnected Pin "U2.234631488".
+Warning, Uniform Distributed RC Line "U2" has no "SpiceModel" value.
+
+The component name "ATMEGA328P-PU" will be used.
+Warning, Current controlled Switch "D1" has no "SpiceModel" value.
+
+The component name "Diode" will be used.
+Unconnected Pin "PL1.157006544".
+Warning, Subcircuit "PL1" has no "SpiceSubcircuit" value.
+
+The component name "CONN_SIL_4" will be used.
+Warning, Subcircuit "PL2" has no "SpiceSubcircuit" value.
+
+The component name "CONN_SIL_3" will be used.
+Warning, Biplolar transistor "Q1" has no "SpiceModel" value.
+
+The component name "ZTX450" will be used.
+Warning, Biplolar transistor "Q2" has no "SpiceModel" value.
+
+The component name "ZTX450" will be used.
+Warning, Biplolar transistor "Q3" has no "SpiceModel" value.
+
+The component name "ZTX450" will be used.
+Warning, Subcircuit "PL3" has no "SpiceSubcircuit" value.
+
+The component name "CONN_SIL_4" will be used.
+Arbitrary source "BZ1" has no "SpiceExpression" value.
+Warning, Subcircuit "PL4" has no "SpiceSubcircuit" value.
+
+The component name "CONN_SIL_3" will be used.
+Warning, Subcircuit "PL5" has no "SpiceSubcircuit" value.
+
+The component name "CONN_SIL_3" will be used.
+Inductor "LDR1" has no "SpiceInductance" value.
+
+Chosen Simulation Parameters:
+-----------------------------
+Analysis Mode: Transient
+    Stop Time: 1m
+    Start Data Output At: 0
+    Output At Interval: 0
+    Maximum Step Time: 20u
+
+
+Options:
+    Absolute Current Tolerance: 1p
+    Relative Tolerance: 1m
+    Voltage Tolerance: 1u
+    Circuit Temperature: 27
+    Integration Method: Trapezoidal
+
+Extra SPICE File: H:\IntelliTank2\intelliTank\schematics\intank.spi
+
+Error reading the extra SPICE file "H:\IntelliTank2\intelliTank\schematics\intank.spi".
+
+
+End Of Report.

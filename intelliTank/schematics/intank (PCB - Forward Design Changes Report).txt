@@ -1,0 +1,29 @@
+Forward Design Changes Report
+-----------------------------
+
+Report File    : H:\IntelliTank2\intelliTank\schematics\intank (PCB - Forward Design Changes Report).txt
+Report Written : Wednesday, February 05, 2014
+Design Path    : H:\IntelliTank2\intelliTank\schematics\intank.pcb
+Design Title   : 
+Created        : 05/02/2014 20:22:40
+Last Saved     : 05/02/2014 20:33:37
+Editing Time   : 13 min
+Units          : thou (precision 0)
+
+Disconnected pin "PL4-2" from net "N0043".
+
+Added net "N0028".
+
+Error: Unable to add component reference "Y1" of component "Capacitor (polar)", package "SPICE" because No PCB information for Component "Capacitor (polar)"..
+
+Connected pin "U2-3" to net "N0007".
+Connected pin "U2-4" to net "GND".
+Connected pin "PL2-1" to net "N0016".
+Connected pin "Q1-2" to net "N0028".
+Connected pin "R3-2" to net "N0028".
+Connected pin "PL4-1" to net "N0016".
+Connected pin "PL4-2" to net "GND".
+Connected pin "PL5-2" to net "GND".
+
+
+End Of Report.

@@ -21,8 +21,9 @@ int red_led = 6;
 int yellow_led = 5;
 int green_led = A0;
 int PIR_pin = A1;
-int LDR_pin = A0;
+int LDR_pin = A5;
 int buzzer = 3;
+int relay = 13;
 /*PIN DEFINITIONS EOD*/
 
 static int FULLPOWER = 1023;
@@ -35,8 +36,8 @@ char degreeSymbol = 223;
 
 float ALERT_TEMP = 0;//if the temp is anything other than zro show
 
-unsigned long HALFPOWER_TIMER = 120000; // 10 mins
-unsigned long QUARTPOWER_TIMER = 180000; //15 mins
+unsigned long HALFPOWER_TIMER = 3600000; 
+unsigned long QUARTPOWER_TIMER =3600000;
 unsigned long CURRENT_TIME;
 
 float ALARM_LOWTEMP = 15;//temp when alarm is triggered by cold water
@@ -52,6 +53,7 @@ void setup()
 {
   Serial.begin(9600);//++++++++++++++++
  
+ pinMode(relay,OUTPUT);
   delay(1000);
   screen.screenManager("Calibrating","Sensors");
   light.init();//start the lighting class
@@ -94,6 +96,7 @@ void loop()
     else
     {
       //Serial.println("going to full power");
+      digitalWrite(relay,HIGH);
       light.LightingOnMode(FULLPOWER);
     }
   }
@@ -124,6 +127,9 @@ void loop()
 
   doTempReadings();//gets the temps from the sensors
   delay(500);
+  
+  
+  //Serial.println(analogRead(LDR_pin));
 }
 
 boolean WHICH_DISP = true;//decides which to show 
@@ -151,6 +157,14 @@ void doTempReadings()
   {
     char* tempStr = (char*) malloc(4);
     dtostrf(waterTemp, 3, 1, tempStr);
+
+  ///Serial playing
+  byte btData[4];
+  btData[0] = 0x01;
+  btData[1] = 0x01;
+  btData[2] = waterTemp;
+  Serial.write(btData,3);
+  Serial.flush();
 
     String temp = String(tempStr);
     temp = temp + degreeSymbol+"C";

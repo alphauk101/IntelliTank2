@@ -1,0 +1,148 @@
+Design Rule Check Report
+------------------------
+
+Report File    : H:\IntelliTank2\intelliTank\schematics\intank (PCB - Design Rule Check Report).txt
+Report Written : Wednesday, February 05, 2014
+Design Path    : H:\IntelliTank2\intelliTank\schematics\intank.pcb
+Design Title   : 
+Created        : 05/02/2014 20:22:40
+Last Saved     : 05/02/2014 20:23:09
+Editing Time   : 7 min
+Units          : thou (precision 0)
+
+
+Results
+=======
+
+Gap in Net "+12V" between (8500,10200) and (8200,10850) 
+    +12V.
+Gap in Net "GND" between (8600,10100) and (8200,10200) 
+    GND.
+Gap in Net "GND" between (8200,10200) and (8200,9750) 
+    GND.
+Gap in Net "GND" between (8200,9750) and (8200,9300) 
+    GND.
+Gap in Net "GND" between (8600,10100) and (8850,9600) 
+    GND.
+Gap in Net "GND" between (8600,10100) and (8600,10850) 
+    GND.
+Gap in Net "GND" between (8600,10850) and (9250,10850) 
+    GND.
+Gap in Net "GND" between (9250,10850) and (9450,10350) 
+    GND.
+Gap in Net "GND" between (9450,10350) and (10350,10300) 
+    GND.
+Gap in Net "GND" between (10350,10300) and (10350,10550) 
+    GND.
+Gap in Net "GND" between (10350,10550) and (10550,10850) 
+    GND.
+Gap in Net "GND" between (10350,10300) and (10350,9800) 
+    GND.
+Gap in Net "GND" between (10350,9800) and (10350,9250) 
+    GND.
+Gap in Net "N0007" between (8700,10200) and (8450,10550) 
+    N0007.
+Gap in Net "N0007" between (8700,10200) and (8750,9600) 
+    N0007.
+Gap in Net "N0016" between (8750,10550) and (8500,10850) 
+    N0016.
+Gap in Net "N0016" between (8750,10550) and (9150,10850) 
+    N0016.
+Gap in Net "N0016" between (9150,10850) and (9750,10850) 
+    N0016.
+Gap in Net "N0016" between (9750,10850) and (9850,10500) 
+    N0016.
+Gap in Net "N0016" between (9850,10500) and (10450,10850) 
+    N0016.
+Gap in Net "N0019" between (8650,9900) and (9850,10850) 
+    N0019.
+Gap in Net "N0020" between (8750,9900) and (9950,10850) 
+    N0020.
+Gap in Net "N0024" between (9050,9900) and (9350,10850) 
+    N0024.
+Gap in Net "N0029" between (8200,9675) and (10750,9550) 
+    N0029.
+Gap in Net "N0030" between (8200,9225) and (8400,9200) 
+    N0030.
+Gap in Net "N0033" between (8200,10050) and (8200,10750) 
+    N0033.
+Gap in Net "N0034" between (8200,9600) and (8200,10650) 
+    N0034.
+Gap in Net "N0035" between (8200,9150) and (8200,10550) 
+    N0035.
+Gap in Net "N0039" between (9550,9600) and (8800,9200) 
+    N0039.
+Gap in Net "N0040" between (9650,9600) and (10350,9550) 
+    N0040.
+Gap in Net "N0041" between (9750,9600) and (10350,10050) 
+    N0041.
+Gap in Net "N0043" between (8550,9600) and (9150,10350) 
+    N0043.
+Gap in Net "N0048" between (9350,9600) and (10650,10850) 
+    N0048.
+Gap in Net "N0051" between (9350,9900) and (8700,10850) 
+    N0051.
+Gap in Net "N0057" between (8950,9900) and (9984,10500) 
+    N0057.
+Gap in Net "N0057" between (9984,10500) and (10750,10300) 
+    N0057.
+Gap in Net "N0060" between (9250,9600) and (9800,9150) 
+    N0060.
+Gap in Net "N0063" between (9800,9250) and (10750,9250) 
+    N0063.
+Gap in Net "N0065" between (9150,9600) and (10150,9150) 
+    N0065.
+Gap in Net "N0066" between (9450,9900) and (9450,9150) 
+    N0066.
+Gap in Net "N0067" between (9450,9250) and (10750,9800) 
+    N0067.
+Gap in Net "N0068" between (10150,9250) and (10750,10550) 
+    N0068.
+
+Number of errors found : 42
+
+
+Settings
+========
+
+
+Spacings
+
+=========
+
+Tracks         Yes
+Pads and Vias  Yes
+Shapes         Yes
+Text           Yes
+Board          Yes
+Drills         Yes
+Components     No
+
+
+Manufacturing
+
+==============
+
+Drill Breakout                   No
+Drill Backoff                    No
+Silkscreen Overlap               No
+Copper Text In Board             No
+Min Track Width                  No
+Min Annular Ring                 No
+Min Paste Size                   No
+Vias In Pads                     No
+Unplated Vias                    No
+Unplated Pads With Inner Tracks  No
+
+
+Nets
+
+=====
+
+Net Completion                Yes
+Dangling Tracks               Yes
+Net Track Length Differences  No
+
+
+
+End Of Report.

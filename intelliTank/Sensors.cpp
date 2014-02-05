@@ -2,7 +2,7 @@
 #include "Sensors.h"
 #include <arduino.h>
 
-static int NIGHT_LEVEL = 800;
+static int NIGHT_LEVEL = 600;
 char blank = 219;
 //int PIR = 20;
 //int LDR = 21;
@@ -65,7 +65,7 @@ bool Sensors::getStatus(int sensor)
     //what we would consider night if not switch to night mode
     //Serial.println(analogRead(LDR_PIN));
     
-    if(_getLDRValue() <= NIGHT_LEVEL)
+    if(_getLDRValue() >= NIGHT_LEVEL)
     {
       //Serial.println("LDR true day");
       return true;
@@ -98,5 +98,7 @@ int Sensors::_getLDRValue()
     med += analogRead(LDR_PIN);
     delay(5);
   }
-  return (med / 10);
+  int res  = (med / 10);
+  //Serial.println(res);
+  return res;
 }

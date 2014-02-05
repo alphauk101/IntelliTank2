@@ -1,0 +1,36 @@
+Report Written :   Wednesday, February 05, 2014  20:32
+Design Path    :   H:\IntelliTank2\intelliTank\schematics\intank.pcb
+Design Title   :
+Created        :   05/02/2014 20:22:40
+Last Saved     :   05/02/2014 20:23:09
+Editing Time   :   9 min
+Units          :   thou (precision 0)
+
+Bill of Materials generated with DesignSpark PCB - www.DesignSpark.com/pcb
+--------------------------------------------------------------------------
+
+
+"Ref Name","Qty","Component","Value","Package","Manufacturer","MPN","RS Part Number","Other Part Number","Description"
+"U2","1","ATMEGA328P-PU","","28P3","Atmel","ATMEGA328P-PU","6962260","","Microcontroller AVR 32K FLASH 2K SRAM"
+"BZ1","1","Buzzer (PCB)","","DIL","","","","",""
+"PL2","1","CONN_SIL_3","","DSC","","","","","3 way Pin Header"
+"PL4","1","CONN_SIL_3","","DSC","","","","","3 way Pin Header"
+"PL5","1","CONN_SIL_3","","DSC","","","","","3 way Pin Header"
+"PL1","1","CONN_SIL_4","","DSC","","","","","4 way Pin Header"
+"PL3","1","CONN_SIL_4","","DSC","","","","","4 way Pin Header"
+"D1","1","Diode","2N0000","DSC","","","","","Diode"
+"U1","1","L7805CV3","","TO92B","","","","",""
+"LDR1","1","LDR (miniature)","","DIL","","","","",""
+"LED1","1","LED","LED 3MM GREEN","DSC","","","","","Light Em Di"
+"LED2","1","LED","LED 3MM RED","DSC","","","","","Light Em Di"
+"LED3","1","LED","LED 3MM YELLOW","DSC","","","","","Light Em Di"
+"R5","1","R","1K","DSC","","","","","Resistor"
+"R6","1","R","1K","DSC","","","","","Resistor"
+"R7","1","R","1K","DSC","","","","","Resistor"
+"R1","1","R","4k7","DSC","","","","","Resistor"
+"R2","1","R","4k7","DSC","","","","","Resistor"
+"R3","1","R","4k7","DSC","","","","","Resistor"
+"R4","1","R","4k7","DSC","","","","","Resistor"
+"Q1","1","ZTX450","","DSC","","","","","NPN Bipolar"
+"Q2","1","ZTX450","","DSC","","","","","NPN Bipolar"
+"Q3","1","ZTX450","","DSC","","","","","NPN Bipolar"

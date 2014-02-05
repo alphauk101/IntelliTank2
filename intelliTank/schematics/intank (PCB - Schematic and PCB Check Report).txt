@@ -1,0 +1,38 @@
+Schematic and PCB Check Report
+------------------------------
+
+Report File    : H:\IntelliTank2\intelliTank\schematics\intank (PCB - Schematic and PCB Check Report).txt
+Report Written : Wednesday, February 05, 2014
+Design Path    : H:\IntelliTank2\intelliTank\schematics\intank.pcb
+Design Title   : 
+Created        : 05/02/2014 20:22:40
+Last Saved     : 05/02/2014 20:33:37
+Editing Time   : 13 min
+Units          : thou (precision 0)
+
+
+Checking integrity of Schematic "H:\IntelliTank2\intelliTank\schematics\intank.sch" with PCB "H:\IntelliTank2\intelliTank\schematics\intank.pcb"
+================================================================================================================================================
+
+The PCB and Schematic designs do not match.
+To bring them into line, you will need to make the following changes to the PCB design:
+
+Disconnect Pin PL4-2 from Net "N0043"
+
+Add Component "Y1" [Capacitor (polar)]
+
+Add Net "N0028"
+
+Connect Pin U2-3 to Net "N0007"
+Connect Pin U2-4 to Net "GND"
+Connect Pin Y1-1 to Net "N0016"
+Connect Pin Y1-2 to Net "GND"
+Connect Pin PL2-1 to Net "N0016"
+Connect Pin Q1-2 to Net "N0028"
+Connect Pin R3-2 to Net "N0028"
+Connect Pin PL4-1 to Net "N0016"
+Connect Pin PL4-2 to Net "GND"
+Connect Pin PL5-2 to Net "GND"
+
+
+End Of Report.
