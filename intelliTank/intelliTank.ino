@@ -1,3 +1,34 @@
+/**
+Schematic pinouts.
+screen:
+2 PD2
+4 PD4
+7 PD7
+A0 PC0
+A1 PC1
+A2 PC2
+A3 PC3
+dht A4 PC4
+
+Lighting:
+BLUE 9 PB1
+WHT1 11 PB3
+WHT2 10 PB2
+
+ds 8 PB0
+rLED 6 PD6
+yLED 5 PD5
+gLED 12 PB4
+PIR 13 PB5
+LDR A5 PC5
+buzzer 3 PD3
+
+Serial bt
+RX 0 PD0
+TX 1 PD1
+*/
+
+
 /*
 *Intelli-Tank 2
  AVRDUDE exe line
@@ -19,8 +50,8 @@ int SWHITE2_PIN = 10;
 OneWire ds(8);
 int red_led = 6;
 int yellow_led = 5;
-int green_led = A0;
-int PIR_pin = A1;
+int green_led = A0;////////////PROBLEM saring with screen
+int PIR_pin = 13;/////////////////
 int LDR_pin = A5;
 int buzzer = 3;
 int relay = 13;
