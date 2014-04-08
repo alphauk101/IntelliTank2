@@ -25,7 +25,7 @@ public class BTcomms {
 		 for (BluetoothDevice device : pairedDevices) {
 		        // Add the name and address to an array adapter to show in a ListView
 		        //Log.i(">",device.getName());
-			 	if(device.getAddress().equals("00:80:25:48:01:02"))//address of stollman
+			 	if(device.getAddress().equals("00:13:12:13:61:77"))// 00:13:12:13:61:77
 			 	{
 			 		deviceHP = device;
 			 	}
