@@ -9,7 +9,7 @@ A1 PC1
 A2 PC2
 A3 PC3
 dht A4 PC4
-
+pc6 power BT mod <- to be programmed
 Lighting:
 BLUE 9 PB1
 WHT1 11 PB3
@@ -34,12 +34,15 @@ TX 1 PD1
  AVRDUDE exe line
  C:\arduino-1.0.3\hardware\tools\avr\bin>avrdude.exe -C C:\arduino-1.0.3\hardware\tools\avr\etc\avrdude.conf -c avrispmkII -P usb -p ATmega328P  -U flash:w:\Users\Lee\Desktop\mainActivity.hex -F
  */
+#include <EEPROM.h>
 #include <OneWire.h>
 #include "DHT11.h"
 #include <LiquidCrystal.h>
 #include "screen.h"
 #include "Lighting.h"
 #include "Sensors.h"
+#include "Prefs.h"
+#include "defines.h"
 
 /*PIN DEFINITIONS*/
 #define dhtPIN A4
@@ -50,12 +53,14 @@ int SWHITE2_PIN = 10;
 OneWire ds(8);
 int red_led = 6;
 int yellow_led = 5;
-int green_led = A0;////////////PROBLEM saring with screen
+int green_led = 12;////////////PROBLEM saring with screen
 int PIR_pin = 13;/////////////////
 int LDR_pin = A5;
 int buzzer = 3;
 int relay = 13;
 /*PIN DEFINITIONS EOD*/
+
+
 
 static int FULLPOWER = 1023;
 static int HALFPOWER = 3098;
@@ -335,7 +340,7 @@ double getWaterTemp()
   int tempInt = ((MSB << 8) | LSB);
   float tempD = ((6 * tempInt) + tempInt / 4);
   tempD = tempD / 100;
-
+  Serial.println(tempInt);
   return tempD;
 }
 

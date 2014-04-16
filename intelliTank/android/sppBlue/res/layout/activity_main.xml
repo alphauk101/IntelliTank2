@@ -41,10 +41,8 @@
         android:id="@+id/txt_Water"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/txt_btTitle"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="73dp"
+        android:layout_marginTop="63dp"
         android:text="Water Temp:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -52,12 +50,38 @@
         android:id="@+id/edt_waterTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/txt_btTitle"
-        android:layout_marginRight="55dp"
-        android:layout_marginTop="55dp"
+        android:layout_below="@+id/txt_Water"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
         android:text="--C"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="50dp" />
-    
+
+    <TextView
+        android:id="@+id/Alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_waterTemp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Auto-Light Times"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/clk_ON"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Alarm"
+        android:layout_below="@+id/Alarm"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/clk_OFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/clk_ON"
+        android:layout_alignBottom="@+id/clk_ON"
+        android:layout_alignRight="@+id/Alarm"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>

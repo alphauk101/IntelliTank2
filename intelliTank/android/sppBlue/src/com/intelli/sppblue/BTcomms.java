@@ -3,8 +3,12 @@ package com.intelli.sppblue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.UUID;
+
+import android.R.array;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -156,25 +160,52 @@ public class BTcomms {
 	    public void run() {
 	        byte[] buffer = new byte[1024];  // buffer store for the stream
 	        int bytes; // bytes returned from read()
-	 
+	        int index = 0;
+	        int timeout = 2000;
 	        // Keep listening to the InputStream until an exception occurs
 	        while (true) {
 	            try {
 	                // Read from the InputStream
 	                if(mmInStream.available() > 0)
 	                {
-		            	bytes = mmInStream.read(buffer);
-		            	
-		            	byte[] data = new byte[bytes];
-		            	System.arraycopy(buffer, 0, data, 0, bytes);//copy the data into a sensible sized array
-		            	
-		                // Send the obtained bytes to the UI activity
-		                Message msg = new Message();
-		                msg.what = MainActivity.BLUETOOTH_BYTES_AVAILABLE;
-		                Bundle bun = new Bundle();
-		                bun.putByteArray(MainActivity.BLUETOOTH_BYTES_AVAIL_KEY,data);
-		                msg.setData(bun);
-		                MainActivity.mHandler.sendMessage(msg);
+	                	
+	                	byte sData = (byte) mmInStream.read();
+	                	Arrays.fill(buffer, (byte) 0x00);
+	                	index = 0;
+	                	boolean err = false;
+	                	if(sData == (byte)0xAA)
+		            	{
+	                		buffer[index] = sData;//put the FF in our data
+	                		timeout = 2000;
+	                		index++;
+	                		//were in business
+	                		do
+	                		{
+	                			sData = (byte) mmInStream.read();
+	                			if((sData != (byte) 0xFF) && (sData != (byte) 0xAA))
+	                			{
+		                			buffer[index] = sData;
+		                			index++;
+		                			timeout--;
+	                			}else
+	                			{
+	                				err = true;
+	                			}
+	                		}while((sData != (byte)0xFE) && (timeout > 0) && (! err));
+	                		
+	                		if((timeout > 0) && (! err))//we did not time out
+	                		{
+	                	 		byte[] da = new byte[index-2];
+	                			System.arraycopy(buffer, 1, da, 0, (index-2));
+	                			// Send the obtained bytes to the UI activity
+	    		                Message msg = new Message();
+	    		                msg.what = MainActivity.BLUETOOTH_BYTES_AVAILABLE;
+	    		                Bundle bun = new Bundle();
+	    		                bun.putByteArray(MainActivity.BLUETOOTH_BYTES_AVAIL_KEY,da);
+	    		                msg.setData(bun);
+	    		                MainActivity.mHandler.sendMessage(msg);
+	                		}
+		            	}
 	                }
 	            } catch (IOException e) {
 	                break;

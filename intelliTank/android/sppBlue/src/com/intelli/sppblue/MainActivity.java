@@ -13,22 +13,18 @@
 
 
 package com.intelli.sppblue;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Set;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.R.bool;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,14 +47,22 @@ public class MainActivity extends Activity {
 	public final static int WATERTEMP_READING = 124565;
 	public final static String WATERTEMP_VALUE = "watertemp";
 	
+	public final static int ALARM_TIME = 455564;
+	public final static String ALARM_VALUES = "alrmval";
+	
 	public final static int SET_TIME = 574325;
+	public final static int GET_ALARM = 582468;
 	
 	
 	//tlv types
 	private final byte WATERTEMP_TYPE = 0x01;
 	private final byte SET_TIME_TYPE = (byte) 0xF1;
-
-
+	private final byte GET_ALARM_TYPE = (byte) 0xA1;
+	
+	
+	TextView dg_ON;
+	TextView dg_OFF;
+	
 	ProgressDialog mProgressDialog;
 	BluetoothAdapter mBluetoothAdapter;
 	public static Handler mHandler;
@@ -87,6 +91,10 @@ public class MainActivity extends Activity {
 		});
 		mButton.setText("Connect");
 		
+		dg_ON = (TextView)findViewById(R.id.clk_ON);
+		dg_OFF = (TextView)findViewById(R.id.clk_OFF);
+		dg_ON.setText("00:00");
+		dg_OFF.setText("00:00");
 		
 		mHandler = new Handler(){
 			@Override
@@ -109,7 +117,7 @@ public class MainActivity extends Activity {
 					mProgressDialog.hide();
 					break;
 				case WATERTEMP_READING:
-					int waterTemp = msg.getData().getInt(WATERTEMP_VALUE);
+					float waterTemp = msg.getData().getFloat(WATERTEMP_VALUE);
 					//now update the display
 					String wt = String.valueOf(waterTemp) + " \u2103";
 					tvWaterTemp.setText(wt);
@@ -130,6 +138,25 @@ public class MainActivity extends Activity {
 						Toast.makeText(getApplicationContext(), "Not set", Toast.LENGTH_LONG).show();
 					}
 					break;
+				case GET_ALARM:
+						byte[] tlv1 = new byte[3];
+						tlv1[0] = (byte) 0xF2;
+						tlv1[1] = 0x01;
+						tlv1[2] = 0x11;
+						if(mBTcomms != null)
+						{
+							mBTcomms.sendBytesSPP(tlv1);
+						}else
+						{
+							Toast.makeText(getApplicationContext(), "Not set", Toast.LENGTH_LONG).show();
+						}
+					break;
+				case ALARM_TIME:
+					byte[] alrms = msg.getData().getByteArray(ALARM_VALUES);
+					String onTime = String.valueOf(alrms[0]) + ":" + String.valueOf(alrms[1]);
+					String offTime = String.valueOf(alrms[2]) + ":" + String.valueOf(alrms[3]);
+					dg_ON.setText(onTime);
+					dg_OFF.setText(offTime);
 				default:
 					break;
 				}
@@ -178,6 +205,9 @@ public class MainActivity extends Activity {
 		if(item.getItemId() == R.id.action_time)
 		{
 			mHandler.sendEmptyMessage(SET_TIME);
+		}else if(item.getItemId() == R.id.action_alarm)
+		{
+			mHandler.sendEmptyMessage(GET_ALARM);
 		}
 		return super.onMenuItemSelected(featureId, item);
 	}
@@ -260,27 +290,36 @@ public class MainActivity extends Activity {
 	//calls the handler with the appropriate action
 	private void processIncomingData(byte[] data)
 	{
-		if((data != null) && (data.length > 0))//due diligence on data
+		if((data != null) && (data.length > 2))//due diligence on data
 		{
 			//get the first byte
 			int cursor = 0;
 			while(cursor < data.length)
 			{
-				//go round our data
-				byte type = data[cursor];
-				cursor++;
-				byte length = data[cursor];
-				cursor ++;
-				//now use the length to get the relevant bytes
-				byte[] TLVdata = new byte[length];
-				for(int a = 0; a < length; a++)
-				{
-					TLVdata[a] = data[cursor];
+				try{
+					
+					//go round our data
+					byte type = data[cursor];
 					cursor++;
+					byte length = data[cursor];
+					cursor ++;
+					//now use the length to get the relevant bytes
+					byte[] TLVdata = new byte[length];
+					for(int a = 0; a < length; a++)
+					{
+						TLVdata[a] = data[cursor];
+						cursor++;
+					}
+					
+					processChunk(type, TLVdata);
+					
+				}catch(Exception ex)
+				{
+					Log.i("INTTEL", "Error parsing TLV");
 				}
 				//here we should have the type, length, data AND a cursor thats in the right place to process the next lot of data
 				//but process this chunk first 
-				processChunk(type, TLVdata);
+				
 				
 			}
 		}//else we dont care
@@ -294,15 +333,33 @@ public class MainActivity extends Activity {
 		case WATERTEMP_TYPE:
 			//we have the water temp reading
 			//so the data should be just one byte
-			int waterTmp = (int)data[0];
+			//int tempInt = ((data[1] << 8) | data[0]);
+			
+			int d0 = data[0];
+			d0 &= 0xFF;
+			int d1 = data[1];
+
+			int tempInt = (d1 << 8) | d0;
+		
+			//tempInt = ((0x00FFFF << 16) & tempInt);
+		    float tempD = ((6 * tempInt) + tempInt / 4);
+		    tempD = tempD / 100;
 			Message msg = new Message();
 			msg.what = WATERTEMP_READING;
 			Bundle bun = new Bundle();
-			bun.putInt(WATERTEMP_VALUE, waterTmp);
+			bun.putFloat(WATERTEMP_VALUE, tempD);
 			msg.setData(bun);
 			mHandler.sendMessage(msg);
 			break;
-		
+		case GET_ALARM_TYPE:
+			Message msg1 = new Message();
+			msg1.what = ALARM_TIME;
+			Bundle bun1 = new Bundle();
+			bun1.putByteArray(ALARM_VALUES, data);
+			msg1.setData(bun1);
+			mHandler.sendMessage(msg1);
+			break;
+			
 		default:
 			break;
 		}
