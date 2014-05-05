@@ -14,6 +14,7 @@
 
 package com.intelli.sppblue;
 import java.util.Calendar;
+import java.util.zip.Inflater;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,9 +23,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,6 +66,8 @@ public class MainActivity extends Activity {
 	TextView dg_ON;
 	TextView dg_OFF;
 	
+	AlertDialog ALD_TimeSetter;
+	
 	ProgressDialog mProgressDialog;
 	BluetoothAdapter mBluetoothAdapter;
 	public static Handler mHandler;
@@ -79,6 +84,13 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		LayoutInflater inflater = (LayoutInflater)getSystemService
+			      (Context.LAYOUT_INFLATER_SERVICE);
+		
+		
+		//ALD_TimeSetter.setView(inflater.inflate(R.layout.autolight_lo, null));
+		//ALD_TimeSetter.
 		
 		//setup button
 		final Button mButton = (Button)findViewById(R.id.btn_update);
